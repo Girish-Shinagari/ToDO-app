@@ -2,7 +2,7 @@ function TodoContainer({ todos, setTodos}) {
     
 
     return (
-        <>
+        <div className="todos-list">
             {todos.map((todo,index) => {
                 return (
                     <div className="todo-container" key={index} >
@@ -15,13 +15,14 @@ function TodoContainer({ todos, setTodos}) {
                                     return pos !== index;
                                 })
                                 setTodos(newarr)
+                                localStorage.setItem('todos', JSON.stringify(newarr))
                             }}>Delete</button>
                         </div>
                     </div>
                 )
             })}
 
-        </>
+        </div>
     )
 }
 

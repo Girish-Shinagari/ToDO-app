@@ -12,6 +12,7 @@ function Input({todos,setTodos}) {
         if (inputval !== '') {
             setTodos([...todos, inputval])
             setInputval('')
+            localStorage.setItem('todos', JSON.stringify([...todos, inputval]))
         }
     }
 
@@ -19,7 +20,7 @@ function Input({todos,setTodos}) {
     return (
         <>
             <div className="main">
-                <h1>To Do App</h1>
+                <h1 style={{ color: 'white' }}>ToDo <span style={{ color: '#7C3AED' }}>App</span></h1>
                 <div className="input-container">
                     <input type="text" placeholder="Enter your task" onChange={todo} value={inputval}></input>
                     <button onClick={displayTodo}>Add</button>

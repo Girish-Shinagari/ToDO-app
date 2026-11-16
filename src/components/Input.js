@@ -1,8 +1,9 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import TodoContainer from "./TodoContainer"
 function Input({todos,setTodos}) {
 
     const [inputval, setInputval] = useState('')
+    const inputRef = useRef(null)
 
     function todo(e) {
         setInputval(e.target.value)
@@ -10,10 +11,12 @@ function Input({todos,setTodos}) {
 
     function displayTodo() {
         if (inputval !== '') {
-            setTodos([...todos, inputval])
+            const newTodos = [inputval, ...todos]
+            setTodos(newTodos)
             setInputval('')
-            localStorage.setItem('todos', JSON.stringify([...todos, inputval]))
+            localStorage.setItem('todos', JSON.stringify(newTodos))
         }
+        inputRef.current.focus()
     }
 
 
@@ -22,7 +25,7 @@ function Input({todos,setTodos}) {
             <div className="main">
                 <h1 style={{ color: 'white' }}>ToDo <span style={{ color: '#7C3AED' }}>App</span></h1>
                 <div className="input-container">
-                    <input type="text" placeholder="Enter your task" onChange={todo} value={inputval}></input>
+                    <input ref={inputRef} type="text" placeholder="Enter your task" onChange={todo} value={inputval}></input>
                     <button onClick={displayTodo}>Add</button>
                 </div>
 
